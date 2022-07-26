@@ -1,4 +1,4 @@
-import "graphql-import-node";
+import "graphql-import-node"; // importar siempre de primero cuando se importen paquetes de graphql
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { GraphQLSchema } from "graphql";
 
@@ -7,7 +7,7 @@ import { loadFilesSync } from "@graphql-tools/load-files";
 import { mergeTypeDefs } from "@graphql-tools/merge";
 
 const typesArray = loadFilesSync(path.join(__dirname, "./graphql"), {
-  extensions: ["graphql"],
+  extensions: ["graphql","gql"],
 });
 
 const typeDefs = mergeTypeDefs(typesArray);

@@ -3,7 +3,6 @@ import compression from "compression";
 import express, { Application } from "express";
 import { GraphQLSchema } from "graphql";
 import { createServer, Server } from "http";
-//import result from "./config/environment";
 
 class GraphQLServer {
   // Propiedades
@@ -46,7 +45,7 @@ class GraphQLServer {
   private async configApolloServerExpress() {
     const apolloServer = new ApolloServer({
       schema: this.schema,
-      introspection: true,
+      introspection: true, // permitir que todo el schema sea visible en el playground
     });
 
     await apolloServer.start();
@@ -65,9 +64,11 @@ class GraphQLServer {
 
   listen(callback: (port: number) => void): void {
     this.httpServer.listen(+this.DEFAULT_PORT, () => {
+      console.log("desde listen");
+      
       callback(+this.DEFAULT_PORT);
     });
   }
 }
-
+//hacer declaracion hoy sin falta
 export default GraphQLServer;
