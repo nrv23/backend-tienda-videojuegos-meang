@@ -3,7 +3,8 @@ type User { # Datos que devuelve
   name: String!
   lastName: String!
   email: String!
-  password: String
+  password: String!
+  role: Role!
   registerDate: String!
   birthDate: String!
 }

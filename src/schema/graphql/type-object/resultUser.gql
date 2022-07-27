@@ -1,0 +1,5 @@
+type ResultUser implements Result { # al heredar los datos de la interfaz debe implementar los campos de la interfaz
+    status: Boolean!
+    message: String!
+    users: [User!]
+}
