@@ -2,5 +2,4 @@ type Query {
 
     users: ResultUser!
     login(email:String!, password: String!): ResultLogin!
-    me: ResultUser!
 }

@@ -1,5 +1,7 @@
 import { UserController } from './../../controllers/users';
 import { IResolvers } from "@graphql-tools/utils";
+import { User } from '../../interface/user.interface';
+
 const user = new UserController();
 
 const queryResolvers: IResolvers = {
@@ -61,6 +63,48 @@ const queryResolvers: IResolvers = {
           message: "Error al intentar hacer login",
           user: null
         }
+      }
+    },
+    me: async (_:void, __:unknown, context:{ token: string }) => {
+
+      try {
+
+        const meResponse = await user.getMe(context.token);
+
+        if(typeof meResponse === "string") {
+          return {
+            status: false,
+            message: meResponse
+          }
+        } else {
+          
+
+          const { user } = meResponse as User;
+          return {
+            status: true,
+            message: "",
+            users: [user]
+          }
+        }
+
+        /*
+          para hacer un spread operator en un array o en un objeto, se debe aplicar el spread operator 
+          para copiar datos de un array dentro de un array y de un objeto dentro de un objeto
+          por ejemplo
+
+          const arr = [];
+          let arr2= [];
+          arr2 = [...arr];
+          para objetos seria
+
+          const obj = {};
+          let obj2 = {};
+
+          obj2 = {...obj};
+        */
+        return null
+      } catch (error) {
+        console.log({error});
       }
     }
   },

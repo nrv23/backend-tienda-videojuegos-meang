@@ -1,3 +1,4 @@
+import { Context } from './interface/Context.interface';
 import { ApolloServer } from "apollo-server-express";
 import compression from "compression";
 import express, { Application } from "express";
@@ -43,9 +44,19 @@ class GraphQLServer {
   }
 
   private async configApolloServerExpress() {
+
+    const context = async ({ req, connection }: Context) => { // el objeto req lee la cabecera donde viene el token
+      // connection se usa para los querys de tipo subscription
+      const token: string = req ? req.headers.authorization as string : connection.authorization;
+      //console.log({token});
+      return {
+        token
+      }
+    }
     const apolloServer = new ApolloServer({
       schema: this.schema,
       introspection: true, // permitir que todo el schema sea visible en el playground
+      context
     });
 
     await apolloServer.start();
@@ -65,7 +76,7 @@ class GraphQLServer {
   listen(callback: (port: number) => void): void {
     this.httpServer.listen(+this.DEFAULT_PORT, () => {
       console.log("desde listen");
-      
+
       callback(+this.DEFAULT_PORT);
     });
   }

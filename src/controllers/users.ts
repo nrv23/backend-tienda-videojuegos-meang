@@ -72,4 +72,15 @@ export class UserController {
         }
     
     }
+
+    public async getMe(token: string) {
+
+        const verified = this.jwt.verify(token);
+        if(!verified) {
+
+            return "El token es inválido o la sesión ha expirado"
+        } else {
+            return verified;
+        }
+    }
 }

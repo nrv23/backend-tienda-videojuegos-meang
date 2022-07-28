@@ -1,0 +1,12 @@
+input UserInput {
+    id: ID
+    name: String!
+    lastName: String!
+    email: String!
+    password: String!
+    role: Role=CLIENT # valor de un enum por defecto
+
+    birthDate: String!
+}
+
+#Solo en los tipos de raiz input se pueden dejar valores por defecto
