@@ -1,7 +1,8 @@
 import Database from "../config/Database";
+const instanceDb = new Database();
 
 async function getConnection() {
-  const instanceDb = new Database();
+  
   const connection = await instanceDb.init(); // devuelve un promesa
 
   return connection;
