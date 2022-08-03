@@ -1,0 +1,8 @@
+"Tipo de objeto para registrar las informacion de géneros de video juegos"
+type Genre implements Item {
+    id: ID!
+    name: String!
+    slug: String!
+}
+
+#Cuando una interfaz se implementa se deben respetar los campos, los tipos de los campos y el requerido

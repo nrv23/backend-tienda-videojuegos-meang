@@ -19,16 +19,28 @@ const mutationResolvers = {
                     const { name, lastName, email, password, role, birthDate } = args.user;
                     const registerResponse = yield user.register(name, lastName, email, password, role, birthDate);
                     if (!registerResponse) {
-                        return "No se pudo agregar el usuario";
+                        return {
+                            status: false,
+                            message: "No se pudo agregar el usuario"
+                        };
                     }
                     else if (registerResponse === "existe") {
-                        return "No puede registrar un usuario que ya existe anteriormente";
+                        return {
+                            status: false,
+                            message: "No puede registrar un usuario que ya existe anteriormente"
+                        };
                     }
-                    return "Usuario agregado con éxito";
+                    return {
+                        status: true,
+                        message: "Usuario registrado con éxito"
+                    };
                 }
                 catch (error) {
                     console.log({ error });
-                    return "Error al agregar el usuario";
+                    return {
+                        status: false,
+                        message: "Error al registrar el usuario"
+                    };
                 }
             }
             catch (error) {

@@ -12,7 +12,8 @@ export const SECRET_KEY= process.env.SECRET;
 export const DATABASE= `${DBURL}${DBNAME}`; 
 
 export enum COLLECTIONS  {
-    USERS = "users"
+    USERS = "users",
+    GENRES = "genres"
 }
 
 export enum EXPRES_IN {

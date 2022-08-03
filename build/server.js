@@ -39,9 +39,17 @@ class GraphQLServer {
     }
     configApolloServerExpress() {
         return __awaiter(this, void 0, void 0, function* () {
+            const context = ({ req, connection }) => __awaiter(this, void 0, void 0, function* () {
+                const token = req ? req.headers.authorization : connection.authorization;
+                console.log({ token });
+                return {
+                    token
+                };
+            });
             const apolloServer = new apollo_server_express_1.ApolloServer({
                 schema: this.schema,
                 introspection: true,
+                context
             });
             yield apolloServer.start();
             apolloServer.applyMiddleware({ app: this.app, cors: true });

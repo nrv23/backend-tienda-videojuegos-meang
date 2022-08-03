@@ -63,6 +63,29 @@ const queryResolvers = {
                     user: null
                 };
             }
+        }),
+        me: (_, __, context) => __awaiter(void 0, void 0, void 0, function* () {
+            try {
+                const meResponse = yield user.getMe(context.token);
+                if (typeof meResponse === "string") {
+                    return {
+                        status: false,
+                        message: meResponse
+                    };
+                }
+                else {
+                    const { user } = meResponse;
+                    return {
+                        status: true,
+                        message: "",
+                        users: [user]
+                    };
+                }
+                return null;
+            }
+            catch (error) {
+                console.log({ error });
+            }
         })
     },
 };

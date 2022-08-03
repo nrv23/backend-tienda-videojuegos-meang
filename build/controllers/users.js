@@ -66,5 +66,16 @@ class UserController {
             }
         });
     }
+    getMe(token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const verified = this.jwt.verify(token);
+            if (!verified) {
+                return "El token es inválido o la sesión ha expirado";
+            }
+            else {
+                return verified;
+            }
+        });
+    }
 }
 exports.UserController = UserController;

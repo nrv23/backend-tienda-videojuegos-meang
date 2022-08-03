@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../config/Database"));
+const instanceDb = new Database_1.default();
 function getConnection() {
     return __awaiter(this, void 0, void 0, function* () {
-        const instanceDb = new Database_1.default();
         const connection = yield instanceDb.init();
         return connection;
     });
