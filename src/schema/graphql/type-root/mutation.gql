@@ -1,4 +1,4 @@
 type Mutation {
 
-    register(user: UserInput!): String!
+    register(user: UserInput!): ResultRegister!
 }

@@ -1,0 +1,4 @@
+type ResultRegister {
+    status: Boolean!
+    message: String!
+}
