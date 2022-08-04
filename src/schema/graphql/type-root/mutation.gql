@@ -1,4 +1,8 @@
 type Mutation {
 
     register(user: UserInput!): ResultRegister!
+
+    # añadir los generos de los juegos
+
+    addGenre(genre: String!): ResultGenre!
 }

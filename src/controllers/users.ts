@@ -41,7 +41,7 @@ export class UserController {
 
         if(!registerResponse?.insertedId) {
 
-            return false
+            return false;
         };
 
         return true;

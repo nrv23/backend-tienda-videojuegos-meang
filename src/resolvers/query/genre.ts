@@ -24,6 +24,24 @@ const queryGenreResolvers: IResolvers = {
                     genres: null
                 }
             }
+        },
+        genre: async(_:void, args: {id: string}) => {
+           
+            try {
+                
+                return {
+                    status: true,
+                    message: "",
+                    genre: [await genre.getGenre(args.id)]
+                }
+            } catch (error) {
+                console.log({error});
+                return {
+                    status: false,
+                    message: "Hubo un error",
+                    genres: null
+                }
+            }
         }
     }
 }

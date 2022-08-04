@@ -4,7 +4,6 @@ const instanceDb = new Database();
 async function getConnection() {
   
   const connection = await instanceDb.init(); // devuelve un promesa
-
   return connection;
 }
 
