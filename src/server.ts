@@ -48,7 +48,6 @@ class GraphQLServer {
     const context = async ({ req, connection }: Context) => { // el objeto req lee la cabecera donde viene el token
       // connection se usa para los querys de tipo subscription
       const token: string = req ? req.headers.authorization as string : connection.authorization;
-      console.log({token});
       return {
         token
       }

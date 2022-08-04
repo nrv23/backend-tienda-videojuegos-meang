@@ -13,14 +13,19 @@ export class GenreController {
         return this.genre.getGenres() as unknown as Array<Genre>;
     }
 
-    public getGenre(id: string) {
-        return this.genre.getGenre(id) as unknown as Array<Genre>;
+    public async getGenre(id: string) {
+        
+        const response = await this.genre.getGenre(id);
+        if(response) {
+            return [response as unknown as Genre];
+        } else {
+            return null;
+        }
     }
 
     public async addGenre(genre: string) {
 
         // generar el slug y el id
-
         const { id } = (await this.genre.getId())[0] as Genre;
         console.log(id);
         

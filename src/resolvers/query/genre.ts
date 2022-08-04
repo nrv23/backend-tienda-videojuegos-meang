@@ -32,7 +32,7 @@ const queryGenreResolvers: IResolvers = {
                 return {
                     status: true,
                     message: "",
-                    genre: [await genre.getGenre(args.id)]
+                    genre: await genre.getGenre(args.id)
                 }
             } catch (error) {
                 console.log({error});
