@@ -29,4 +29,9 @@ export class GenreService {
         const connection = await db;
         return connection?.collection(COLLECTIONS.GENRES).insertOne(genre);
     }
+
+    public async existGenre(name: string) {
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.GENRES).findOne({name});
+    }
 }
