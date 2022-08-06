@@ -1,6 +1,6 @@
 {
   "name": "book-store-api",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "API Graphql conectada a mysql con typescript",
   "main": "build/app.js",
   "scripts": {
