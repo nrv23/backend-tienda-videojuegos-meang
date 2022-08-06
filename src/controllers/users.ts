@@ -17,13 +17,41 @@ export class UserController {
         this.bcrypt = new Bcrypt();
     }
 
+    private async existUser(value: string | number, tipo: string) {
+
+
+        if(!value ) {
+            return 0;
+        }
+
+        const response = await this.user.existUser(value);
+        console.log(response);
+        if(tipo === "update" || tipo === "delete") {
+
+            if(Number(response?.length) === 0) {
+
+                return 1;
+            } 
+
+            return 2;
+        } else {
+            if(Number(response?.length) > 0){
+
+                return 1;
+            } 
+
+            return 2;
+        }
+    }
+
     public async register(name: string, lastName: string, email: string, password: string, role?: string, birthDate?: string) {
 
-        const exist = await this.user.login(email) as userRow;
+    
+        const exist = await this.existUser(email,"add");
 
-        if(exist) {
+        if(exist === 1 || exist === 0) {
 
-            return "existe";
+            return exist;
         }
 
         const lastIdResponse = await this.user.getLastId(); 
@@ -41,10 +69,10 @@ export class UserController {
 
         if(!registerResponse?.insertedId) {
 
-            return false;
+            return 2;
         };
 
-        return true;
+        return "Se ha agregado el usuario con éxito";
     }
 
 
@@ -73,6 +101,35 @@ export class UserController {
     
     }
 
+    public async updateUser(user: User,token: string) {
+
+        const verified = this.jwt.verify(token);
+
+        if(!verified) {
+            throw new Error("TOKEN_VENCIDO"); 
+        } 
+
+        const exist = await this.existUser(user.id,"update");
+
+        if(exist === 1 || exist === 0) {
+
+            return exist;
+        }
+
+        user.password = await this.bcrypt.encryptPass(user.password) as string;
+
+        const userUpdate = new User(user.id,user.name, user.lastName, user.email, user.password,user.role, user.birthDate);
+        const updateUserResponse = await this.user.updateUser(userUpdate);
+
+        if(updateUserResponse?.modifiedCount === 0) {
+
+            return 2;
+        } else {
+
+            return "Se ha actualizado el usuario"
+        }
+    }
+
     public async getMe(token: string) {
 
         const verified = this.jwt.verify(token);
@@ -82,5 +139,33 @@ export class UserController {
         } else {
             return verified;
         }
+    }
+
+    public async deleteUser(id:number,token: string) {
+
+        const verified = this.jwt.verify(token);
+
+        if(!verified) {
+            throw new Error("TOKEN_VENCIDO"); 
+        } 
+
+        const exist = await this.existUser(id,"delete");
+
+        if(exist === 1 || exist === 0) {
+
+            return exist;
+        }
+
+
+        const userDeletedResponse = await this.user.deleteUser(id);
+
+        if(userDeletedResponse?.deletedCount === 0) {
+
+            return 2;
+        } else {
+
+            return "Usuario eliminado con éxito";
+        }
+
     }
 }

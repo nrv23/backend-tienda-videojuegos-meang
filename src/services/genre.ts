@@ -32,6 +32,30 @@ export class GenreService {
 
     public async existGenre(name: string) {
         const connection = await db;
-        return connection?.collection(COLLECTIONS.GENRES).findOne({name});
+        return connection?.collection(COLLECTIONS.GENRES).find({$or: [{id: name},{name}]}).toArray();
+    }
+    
+    public async updateGenre(genre: Genre) {
+
+        const connection = await db;
+        /*  
+            Importante:
+
+            El paramrtro de filtro debe ser del mismo tipo de dato que la columna de filtro
+
+        */
+        return connection?.collection(COLLECTIONS.GENRES).updateOne({id: genre.id },{
+            $set:{
+                name: genre.name,
+                slug: genre.slug
+            }
+        });
+    }
+
+    public async deleteGenre(id: string) {
+
+        const connection = await db;
+
+        return connection?.collection(COLLECTIONS.GENRES).deleteOne({id});
     }
 }

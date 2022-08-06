@@ -14,6 +14,33 @@ export class GenreController {
         return this.genre.getGenres() as unknown as Array<Genre>;
     }
 
+    private async existGenre(genre: string,tipo:string) {
+
+        if(!genre) {
+            return 0;
+        }
+
+        // validar que el genero no exista 
+        const existGenreResponse = await this.genre.existGenre(genre);
+
+        if(tipo === "update" || tipo === "delete") {
+
+            if(Number(existGenreResponse?.length) === 0) {
+                return 1;
+            }
+    
+            return 2;
+
+        } else {
+
+            if(Number(existGenreResponse?.length) > 0) {
+                return 1;
+            }
+    
+            return 2;
+        }
+    }
+
     public async getGenre(id: string) {
         
         const response = await this.genre.getGenre(id);
@@ -26,15 +53,11 @@ export class GenreController {
 
     public async addGenre(genre: string) {
 
-        if(!genre) {
-            return 0;
-        }
-
         // validar que el genero no exista 
-        const existGenre = await this.genre.existGenre(genre) as Genre;
+        const existGenre = await this.existGenre(genre,"add");
 
-        if(existGenre) {
-            return 1;
+        if(existGenre === 0 || existGenre === 1) {
+            return existGenre;
         }
 
         // generar el slug y el id
@@ -46,6 +69,45 @@ export class GenreController {
             return newGenre;
         } else {
             return 2;
+        }
+    }
+
+    public async updateGenre(genre: Genre) {
+
+        // validar que el genero no exista 
+        const existGenre = await this.existGenre(genre.id as string,"update");
+        
+        if(existGenre === 0 || existGenre === 1) {
+            return existGenre;
+        }
+
+        // generar el slug y el id
+        const updateGenre = new Genre(genre.name,slug(genre.name.toLowerCase()),Number(genre.id as unknown).toString());
+        const updateGenreResponse = await this.genre.updateGenre(updateGenre);
+        if (updateGenreResponse?.modifiedCount === 0) {
+            return 2;
+        } else {
+            return updateGenre;
+        }
+
+    }
+
+    public async deleteGenre(id: string) {
+
+        const existGenre = await this.existGenre(id,"delete");
+        
+        if(existGenre === 0 || existGenre === 1) {
+            return existGenre;
+        }
+
+
+        const deleteGenreResponse = await this.genre.deleteGenre(id);
+
+        if(deleteGenreResponse?.deletedCount === 0) {
+            return 2
+        } else {
+
+            return "Se ha eliminado el género correctamente"
         }
     }
 }

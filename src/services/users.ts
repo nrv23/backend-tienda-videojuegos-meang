@@ -37,5 +37,33 @@ export class UserService {
         return connection?.collection(COLLECTIONS.USERS).findOne({email});
     }
 
+    public async updateUser(user: User) {
+
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({id: Number(user.id)},{
+            $set: {
+                name: user.id, 
+                lastName: user.lastName,
+                email: user.email,
+                password: user.password,
+                role: user.role,
+                birthDate : user.birthDate
+            }
+        })
+
+    }
+
+    public async existUser(value: string | number) {
+
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).find({$or: [{email: String(value)},{id: Number(value)}]}).toArray();
+    }
+
+    public async deleteUser(id: number) {
+
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).deleteOne({id: Number(id)});
+    }
+
     
 }

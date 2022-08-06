@@ -1,13 +1,13 @@
 export class User {
 
-    protected id: number;
-    protected name: string;
-    protected lastName: string;
-    protected email: string;
-    protected password:string;
-    protected role?:string;
-    protected birthDate? :string;
-    protected registerDate? :string;
+    public id: number;
+    public name: string;
+    public lastName: string;
+    public email: string;
+    public password:string;
+    public role?:string;
+    public birthDate? :string;
+    public registerDate? :string;
 
     constructor(id: number , name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string, registerDate?: string ) {
         this.id = id;
