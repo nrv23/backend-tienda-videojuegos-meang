@@ -76,9 +76,14 @@ export class UserController {
     }
 
 
-    public async getUsers() {
+    public async getUsers(page: number = 1,items: number = 20) {
 
-        return this.user.getUsers();
+        const { users,resultPagination } = await this.user.getUsers(page, items);
+
+        return { 
+            users: users as unknown as User[],
+            resultPagination 
+        }
     }
 
     public async login(email:string, password: string) {

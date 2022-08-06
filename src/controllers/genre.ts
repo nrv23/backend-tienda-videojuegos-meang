@@ -10,8 +10,14 @@ export class GenreController {
 
     private genre: GenreService = new GenreService();
 
-    public getGenres() {
-        return this.genre.getGenres() as unknown as Array<Genre>;
+    public async getGenres(page: number = 1, itemsPage: number = 20) {
+
+        const { genres, resultPagination } = await this.genre.getGenres(page, itemsPage);
+
+        return { 
+            genres: genres as unknown as Array<Genre>, 
+            resultPagination 
+        };
     }
 
     private async existGenre(genre: string,tipo:string) {

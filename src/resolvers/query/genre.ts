@@ -4,16 +4,17 @@ const genre = new GenreController();
 const queryGenreResolvers: IResolvers = {
 
     Query: {
-        genres: async (_:void,__:unknown) => {
+        genres: async (_:void,args: { page: number, items: number }) => {
 
             try {   
-                
-                const response = await genre.getGenres();
+
+                const {genres, resultPagination} = await genre.getGenres(args.page, args.items);
                 
                 return {
                     status: true,
                     message: "",
-                    genre: response
+                    genre: genres,
+                    info: resultPagination
                 }
 
             } catch (error) {

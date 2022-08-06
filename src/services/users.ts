@@ -1,8 +1,10 @@
+import { IPaginationOptions } from './../interface/PaginationOptions.interface';
 import { userRow } from './../interface/user.interface';
-import { InsertManyResult, WithId } from "mongodb";
+import { Db, InsertManyResult, WithId } from "mongodb";
 import { COLLECTIONS } from "../config/constant";
 import db from "../helper/connection";
 import { User } from "../models/user.model";
+import { pagination } from '../helper/query';
 
 export class UserService {
 
@@ -22,17 +24,27 @@ export class UserService {
         return connection?.collection(COLLECTIONS.USERS).insertOne(user);
     }
 
-    public async getUsers() {
+    public async getUsers(page: number, items: number) {
 
         const connection = await db;
+        const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.USERS,page,items);
 
-        return connection?.collection(COLLECTIONS.USERS).find().sort({registerDate: -1}).toArray();
-
+        const users = connection?.collection(COLLECTIONS.USERS)
+                .find({})
+                .limit(paginationOptions.itemsPage)
+                .skip(paginationOptions.skip)
+                .sort({id: 1})
+                .toArray();
+        return {
+            users,
+            resultPagination: paginationOptions
+        }
     }
 
     public async login(email: string) {
 
         const connection = await db;
+        
 
         return connection?.collection(COLLECTIONS.USERS).findOne({email});
     }

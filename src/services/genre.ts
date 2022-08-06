@@ -1,7 +1,8 @@
+import { IPaginationOptions } from './../interface/PaginationOptions.interface';
 import { Db } from 'mongodb';
 import { COLLECTIONS } from "../config/constant";
 import db from "../helper/connection";
-import getLastId from "../helper/query";
+import {getLastId, pagination} from "../helper/query";
 import { Genre } from "../models/genre.model";
 
 export class GenreService {
@@ -15,9 +16,22 @@ export class GenreService {
         return getLastId(connection as Db,COLLECTIONS.GENRES);
     }
 
-    public async getGenres() {
+    public async getGenres(page: number,itemsPage: number) {
+        
         const connection = await db;
-        return connection?.collection(COLLECTIONS.GENRES).find().sort({registerDate: -1}).toArray();
+        const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.GENRES,page,itemsPage);
+    
+        const genres = connection?.collection(COLLECTIONS.GENRES)
+            .find({})
+            .limit(paginationOptions.itemsPage)
+            .skip(paginationOptions.skip)
+            .sort({id: 1})
+            .toArray();
+        
+        return {
+            genres,
+            resultPagination: paginationOptions
+        }
     }
 
     public async getGenre(id: string) {
