@@ -55,12 +55,13 @@ export class UserController {
         }
 
         const lastIdResponse = await this.user.getLastId(); 
+
         let id : number = 0;
 
         if(lastIdResponse?.length === 0) {
             id = 1;
         } else {
-            id = Number(lastIdResponse?.length) + 1;
+            id = Number(lastIdResponse[0].id) + 1;
         }
         password = await this.bcrypt.encryptPass(password) as string;
 

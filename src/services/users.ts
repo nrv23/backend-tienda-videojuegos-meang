@@ -4,7 +4,7 @@ import { Db, InsertManyResult, WithId } from "mongodb";
 import { COLLECTIONS } from "../config/constant";
 import db from "../helper/connection";
 import { User } from "../models/user.model";
-import { pagination } from '../helper/query';
+import { getLastId as _getLastId, pagination } from '../helper/query';
 
 export class UserService {
 
@@ -15,7 +15,7 @@ export class UserService {
     public async getLastId() {
 
         const connection = await db;
-        return connection?.collection<WithId<Document>>(COLLECTIONS.USERS).find().limit(1).sort({registerDate: -1}).toArray();
+        return _getLastId(connection as Db,COLLECTIONS.USERS)
     }
 
     public async register(user: User) {
