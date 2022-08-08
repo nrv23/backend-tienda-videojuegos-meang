@@ -8,4 +8,5 @@ type Mutation {
     addGenre(genre: String!): ResultGenre!
     updateGenre(genre: GenreInput!): ResultGenre!
     deleteGenre(id: ID!): ResultGenre!
+    blockGenre(id: ID!,active: Boolean!): ResultGenre!
 }

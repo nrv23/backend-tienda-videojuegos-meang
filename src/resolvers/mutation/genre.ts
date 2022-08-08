@@ -145,9 +145,37 @@ const resolversGenresMutation : IResolvers = {
                     genre: null
                 }
             }
+        },
+        blockGenre: async (_:void, args: { id: number, active: boolean }) => {
+            try {
+
+                console.log(args);
+                const response = await genre.blockGenre(args.id, args.active)
+
+                if(response === 1) {
+                    return {
+                        status: true,
+                        message: "Se ha modificado el estado del género",
+                        genre: null
+                    }
+                } else {
+                    return {
+                        status: false,
+                        message: "No se pudo modificar el estado del género",
+                        genre: null
+                    }
+                }
+                
+            } catch (error) {
+                console.log({error});
+                return {
+                    status: false,
+                    message: "Hubo un error",
+                    genre: null
+                }
+            }
         }
     }
-    
 }
 
 export default resolversGenresMutation;

@@ -41,6 +41,7 @@ export class GenreService {
 
     public async addGenre(genre: Genre) {
         const connection = await db;
+        genre.active = true;
         return connection?.collection(COLLECTIONS.GENRES).insertOne(genre);
     }
 
@@ -71,5 +72,15 @@ export class GenreService {
         const connection = await db;
 
         return connection?.collection(COLLECTIONS.GENRES).deleteOne({id});
+    }
+
+    public async blockGenre(id: number, active: boolean) {
+
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.GENRES).updateOne({id: String(id)},{
+            $set: {
+                active: active
+            }
+        });        
     }
 }

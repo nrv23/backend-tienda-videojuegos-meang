@@ -116,4 +116,15 @@ export class GenreController {
             return "Se ha eliminado el género correctamente"
         }
     }
+
+    public async blockGenre(id: number, active: boolean) {
+
+        const response = await this.genre.blockGenre(id,active);
+        
+        if(response?.modifiedCount === 0) {
+            return 0;
+        }
+
+        return 1;
+    }
 }
