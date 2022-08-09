@@ -7,12 +7,12 @@ function getLastId(db:Db, collection: string) {
     return db.collection(collection).find().sort({id: -1}).limit(1).toArray();
 }
 
-async function countElements (collection: string, db:Db) {
+async function countElements (collection: string, db:Db,filter:object = {}) {
 
-    return await db.collection(collection).countDocuments();
+    return await db.collection(collection).countDocuments(filter);
 
 }
-async function pagination(db:Db,collection: string, page:number=1, itemsPage:number = 20 ) {
+async function pagination(db:Db,collection: string, page:number=1, itemsPage:number = 20,filter: object = {} ) {
 
     // Comprobar el numero de items por pagina
     if(itemsPage > 20 || itemsPage < 1) {
@@ -23,7 +23,7 @@ async function pagination(db:Db,collection: string, page:number=1, itemsPage:num
         page = 1; // la primer pagina siempre va ser 1 
     }
 
-    const total = await countElements(collection,db);
+    const total = await countElements(collection,db,filter);
 
     const totalPages = Math.ceil(total / itemsPage); // como puede haber un residuo en la division entonces se redondea
     // hacia arriba, 

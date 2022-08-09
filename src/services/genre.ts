@@ -16,13 +16,17 @@ export class GenreService {
         return getLastId(connection as Db,COLLECTIONS.GENRES);
     }
 
-    public async getGenres(page: number,itemsPage: number) {
+    public async getGenres(page: number,itemsPage: number,filter: object = {
+        active: {
+            $ne: false
+        }
+    }) {
         
         const connection = await db;
-        const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.GENRES,page,itemsPage);
+        const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.GENRES,page,itemsPage,filter);
     
         const genres = connection?.collection(COLLECTIONS.GENRES)
-            .find({})
+            .find(filter)
             .limit(paginationOptions.itemsPage)
             .skip(paginationOptions.skip)
             .sort({id: 1})
