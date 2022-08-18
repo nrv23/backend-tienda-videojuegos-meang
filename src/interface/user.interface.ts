@@ -8,6 +8,7 @@ export interface User {
     password: string;
     role?: string;
     birthDate: string;
+    active?: boolean;
   };
 }
 
@@ -20,4 +21,5 @@ export interface userRow  extends WithId<Document> {
     role?: string;
     birthDate: string;
     registerDate: string;
+    active?: boolean;
 }

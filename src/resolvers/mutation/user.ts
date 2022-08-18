@@ -17,7 +17,8 @@ const mutationResolvers: IResolvers = {
             email,
             password,
             role,
-            birthDate
+            birthDate,
+            args.user.active !== null && typeof args.user.active !== 'undefined' ? args.user.active: true
           );
 
           if (registerResponse === 0) {

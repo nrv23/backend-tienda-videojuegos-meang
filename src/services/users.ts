@@ -24,13 +24,17 @@ export class UserService {
         return connection?.collection(COLLECTIONS.USERS).insertOne(user);
     }
 
-    public async getUsers(page: number, items: number) {
+    public async getUsers(page: number, items: number,filter: object = {
+        active: {
+            $ne: false
+        }
+    }) {
 
         const connection = await db;
-        const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.USERS,page,items);
+        const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.USERS,page,items,filter);
 
         const users = connection?.collection(COLLECTIONS.USERS)
-                .find({})
+                .find(filter)
                 .limit(paginationOptions.itemsPage)
                 .skip(paginationOptions.skip)
                 .sort({id: 1})

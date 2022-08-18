@@ -5,7 +5,7 @@ input UserInput {
     email: String!
     password: String!
     role: Role=CLIENT # valor de un enum por defecto
-
+    active: Boolean
     birthDate: String!
 }
 

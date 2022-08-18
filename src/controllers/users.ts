@@ -44,7 +44,7 @@ export class UserController {
         }
     }
 
-    public async register(name: string, lastName: string, email: string, password: string, role?: string, birthDate?: string) {
+    public async register(name: string, lastName: string, email: string, password: string, role?: string, birthDate?: string, active?:boolean) {
 
     
         const exist = await this.existUser(email,"add");
@@ -65,7 +65,7 @@ export class UserController {
         }
         password = await this.bcrypt.encryptPass(password) as string;
 
-        const user = new User(id,name, lastName, email, password,role, birthDate,new Date().toISOString() );
+        const user = new User(id,name, lastName, email, password,role, birthDate,new Date().toISOString(),active );
         const registerResponse = await this.user.register(user);
 
         if(!registerResponse?.insertedId) {
