@@ -60,6 +60,8 @@ const mutationResolvers: IResolvers = {
 
     updateUser: async(_:void, args: {user: User},context: {token: string}) => {
       try {
+
+        console.log({user: args.user});
        
         
         const updatedResponse = await user.updateUser(args.user,context.token);
@@ -159,6 +161,63 @@ const mutationResolvers: IResolvers = {
         return {
           status: false,
           message: "Error al eliminar el usuario"
+        };
+        
+      }
+    },
+
+    blockUser: async(_:void, args:{ id: number, active: boolean }, context: {token: string}) => {
+
+      try {
+
+        const { id,active } = args;
+        const { token } = context;
+
+
+
+        const blockUserResponse = await user.blockUser(id,active,token);
+
+        if (blockUserResponse === 0) {
+        
+          return {
+            status: false,
+            message: "No se pudo validar el usuario"
+          }
+        }
+
+        else if(blockUserResponse === 1) {
+          return {
+            status: false,
+            message: "No puede bloquear un usuario que no existe"
+          }
+
+        } else if(blockUserResponse === 2) {
+          return {
+            status: false,
+            message: "No se pudo bloquear el usuario"
+          }
+        }
+
+        return  {
+          status: true,
+          message: blockUserResponse
+        };
+        
+      } catch (error) {
+        console.log(error);
+
+        const errorResponse = error as Error;
+        if(errorResponse.message === "TOKEN_VENCIDO") {
+
+          return {
+            status: false,
+            message: "Se ha vencido la sesión"
+          };
+        } 
+
+        return {
+          status: false,
+          message: "Error al bloquear el usuario"
         };
         
       }

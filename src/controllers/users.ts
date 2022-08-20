@@ -174,4 +174,29 @@ export class UserController {
         }
 
     }
+
+    public async blockUser(id: number,active:boolean,token: string) {
+        const verified = this.jwt.verify(token);
+
+        if(!verified) {
+            throw new Error("TOKEN_VENCIDO"); 
+        } 
+
+        const exist = await this.existUser(id,"delete");
+
+        if(exist === 1 || exist === 0) {
+
+            return exist;
+        }
+
+        const blockUserResponse = await this.user.blockUser(id,active);
+
+        if(blockUserResponse?.modifiedCount === 0) {
+
+            return 2;
+
+        } else {
+            return "Usuario bloqueado con éxito";
+        }
+    }
 }

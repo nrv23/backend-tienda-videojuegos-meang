@@ -3,6 +3,7 @@ type Mutation {
     register(user: UserInput!): ResultRegister!
     updateUser(user: UserInput!): ResultUser!
     deleteUser(id: ID!): ResultUser!
+    blockUser(id: ID!, active:Boolean!): ResultUser!
     # añadir los generos de los juegos
 
     addGenre(genre: String!): ResultGenre!

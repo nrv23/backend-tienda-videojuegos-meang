@@ -7,4 +7,5 @@ type User { # Datos que devuelve
   role: Role!
   registerDate: String!
   birthDate: String!
+  active: Boolean
 }

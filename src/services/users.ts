@@ -58,7 +58,7 @@ export class UserService {
         const connection = await db;
         return connection?.collection(COLLECTIONS.USERS).updateOne({id: Number(user.id)},{
             $set: {
-                name: user.id, 
+                name: user.name, 
                 lastName: user.lastName,
                 email: user.email,
                 password: user.password,
@@ -81,5 +81,14 @@ export class UserService {
         return connection?.collection(COLLECTIONS.USERS).deleteOne({id: Number(id)});
     }
 
+    public async blockUser(id:number, active:boolean) {
+
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({id: Number(id)},{
+            $set: {
+                active: Boolean(active)
+            }
+        })
+    }
     
 }
