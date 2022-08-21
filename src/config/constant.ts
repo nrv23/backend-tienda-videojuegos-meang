@@ -23,3 +23,6 @@ export enum EXPRES_IN {
 }
 
 export const saltRounds = 10;
+export const USER_EMAIL = process.env.USER_EMAIL;
+export const USER_PASSWORD = process.env.USER_PASSWORD;
+export const CLIENT_URL = process.env.CLIENT_URL;

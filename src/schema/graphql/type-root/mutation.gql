@@ -10,4 +10,10 @@ type Mutation {
     updateGenre(genre: GenreInput!): ResultGenre!
     deleteGenre(id: ID!): ResultGenre!
     blockGenre(id: ID!,active: Boolean!): ResultGenre!
+
+    #Envio de emails automaticos
+
+    sendEmail(mail: MailInput!): ResultMail!
+    activeUserEmail(id: ID!,email: String!): ResultMail!
+
 }

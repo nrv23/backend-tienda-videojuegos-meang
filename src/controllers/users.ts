@@ -25,7 +25,6 @@ export class UserController {
         }
 
         const response = await this.user.existUser(value);
-        console.log(response);
         if(tipo === "update" || tipo === "delete") {
 
             if(Number(response?.length) === 0) {
@@ -33,14 +32,14 @@ export class UserController {
                 return 1;
             } 
 
-            return 2;
+            return response;
         } else {
             if(Number(response?.length) > 0){
 
                 return 1;
             } 
 
-            return 2;
+            return response;
         }
     }
 
@@ -198,5 +197,21 @@ export class UserController {
         } else {
             return "Usuario bloqueado con éxito";
         }
+    }
+
+    public async getSesionToActiveUser(id: number) {
+        let exist = await this.existUser(id,"update");
+
+        if(exist === 1 || exist === 0) {
+
+            return exist;
+        }
+
+        let user = (exist as unknown as  userRow[])[0]
+        user.password = "";
+     
+        // genera el token
+        return this.jwt.sign(user);
+    
     }
 }

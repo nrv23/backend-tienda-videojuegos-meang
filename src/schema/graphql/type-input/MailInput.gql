@@ -1,0 +1,6 @@
+input MailInput {
+    from: String # Nulo
+    to: String! # Quien recibe el mensaje
+    subject: String! # asunto del correo
+    html: String! # html para la pantilla
+}

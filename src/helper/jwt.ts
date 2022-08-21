@@ -8,6 +8,8 @@ export class Jwt {
 
     sign(data: userRow, expiresIn: number = EXPRES_IN.H1 ) {
 
+        delete data.password;
+        
         return jwt.sign({user: data},this.secret_key, {
             expiresIn //: 24 * 60 * 60 // 24 horas
         })
