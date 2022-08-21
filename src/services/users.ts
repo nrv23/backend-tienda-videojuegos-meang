@@ -101,5 +101,14 @@ export class UserService {
             }
         })
     }
+
+    public async resetPassword(id: number, password: string) {
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({id: Number(id)},{
+            $set: {
+                password
+            }
+        })
+    }
     
 }

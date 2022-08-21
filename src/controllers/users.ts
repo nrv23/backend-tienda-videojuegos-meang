@@ -89,7 +89,6 @@ export class UserController {
     public async login(email:string, password: string) {
 
         let loginResponse = await this.user.login(email) as userRow;
-
         if(!loginResponse) {
             return 0; // no encontró a ningun usuario
         } else {
@@ -204,7 +203,7 @@ export class UserController {
         }
     }
 
-    public async getSesionToActiveUser(id: number) {
+    public async getSesionToActiveUser(id: number | string) {
         let exist = await this.existUser(id,"update");
 
         if(exist === 1 || exist === 0) {
@@ -228,7 +227,7 @@ export class UserController {
             throw new Error("TOKEN_VENCIDO"); 
         } 
         console.log(verified.user);
-        const checkToken = Object.values(verified.user) as unknown as userRow;
+        const checkToken = verified.user as unknown as userRow;
 
         if(Number(checkToken.id) !== id){
             return 3;
@@ -251,5 +250,39 @@ export class UserController {
         }
 
         return "Se ha activado el usuario";
+    }
+
+
+    public async resetPass(id: number, token: string, password: string) {
+        const verified = this.jwt.verify(token) as any;
+
+        if(!verified) {
+            throw new Error("TOKEN_VENCIDO"); 
+        } 
+
+        const checkToken = verified.user as unknown as userRow;
+        console.log({checkToken});
+        console.log({id})
+        if(Number(checkToken.id) !== +id){ // validar que sea la misma persona
+            return 3;
+        }
+
+        let exist = await this.existUser(id,"update");
+
+        if(exist === 1 || exist === 0) {
+
+            return exist;
+        }
+
+        const newPass = await this.bcrypt.encryptPass(password) as string;
+        const resetPasswordResponse = await this.user.resetPassword(id,newPass);
+
+        if(resetPasswordResponse?.modifiedCount === 0) {
+
+            return 2;
+        }
+
+        return "Se ha cambiado la contraseña";
+
     }
 }
