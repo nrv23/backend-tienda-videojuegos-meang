@@ -90,5 +90,16 @@ export class UserService {
             }
         })
     }
+
+    public async activeUser(id: number, password: string, birthDate: string) {
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({id: Number(id)},{
+            $set: {
+                active: true,
+                birthDate,
+                password
+            }
+        })
+    }
     
 }

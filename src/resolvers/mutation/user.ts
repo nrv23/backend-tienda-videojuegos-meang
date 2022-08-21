@@ -221,6 +221,57 @@ const mutationResolvers: IResolvers = {
         };
         
       }
+    },
+    activeUser: async(_:void, args:{ id: string, birthDate: string, password: string }, context: {token: string}) => {
+
+      try {
+
+        const response = await user.activeUser(+args.id,context.token,args.password,args.birthDate)
+
+        if(response === 0) {
+          return {
+            status: false,
+            message: "Debe enviar un id de usuario válido"
+          };
+        } else if(response === 1) {
+            return {
+              status: false,
+              message: "No existe el usuario con el id"+args.id
+            };
+          } else if(response === 2) {
+            return {
+              status: false,
+              message: "No se pudo activar el usuario"
+            };
+          }  else if(response === 3) {
+            return {
+              status: false,
+              message: "El parámetro id del usuario no corresponde con el id de la sesión"
+            };
+          }   else {
+            return {
+              status: true,
+              message: response
+            };
+          }
+  
+      } catch (error) {
+        console.log(error);
+
+        const errorResponse = error as Error;
+        if(errorResponse.message === "TOKEN_VENCIDO") {
+
+          return {
+            status: false,
+            message: "Se ha vencido la sesión"
+          };
+        } 
+
+        return {
+          status: false,
+          message: "Error al activar el usuario"
+        };
+      }
     }
   },
 };

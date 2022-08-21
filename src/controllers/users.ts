@@ -94,6 +94,11 @@ export class UserController {
             return 0; // no encontró a ningun usuario
         } else {
 
+            if(loginResponse.active === false) {
+
+                return 2;
+            }
+
             if(!(await this.bcrypt.verifyPassword(password,loginResponse.password as string))) {
                 return 1;
             } else {
@@ -213,5 +218,38 @@ export class UserController {
         // genera el token
         return this.jwt.sign(user);
     
+    }
+
+    public async activeUser(id: number, token: string, password: string,birthDate: string) {
+
+        const verified = this.jwt.verify(token) as any;
+
+        if(!verified) {
+            throw new Error("TOKEN_VENCIDO"); 
+        } 
+        console.log(verified.user);
+        const checkToken = Object.values(verified.user) as unknown as userRow;
+
+        if(Number(checkToken.id) !== id){
+            return 3;
+        }
+
+        let exist = await this.existUser(id,"update");
+
+        if(exist === 1 || exist === 0) {
+
+            return exist;
+        }
+
+        const newPass = await this.bcrypt.encryptPass(password) as string;
+
+        const activatedUser = await this.user.activeUser(id,newPass,birthDate);
+
+        if(activatedUser?.modifiedCount === 0) {
+
+            return 2;
+        }
+
+        return "Se ha activado el usuario";
     }
 }

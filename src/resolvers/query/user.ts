@@ -50,6 +50,12 @@ const queryResolvers: IResolvers = {
             message: "Datos de autenticación incorrectos",
             token: null
           }
+        } else if(loginResponse === 2) {
+          return {
+            status: false,
+            message: "La cuenta está bloqueada. Contacte al administrador",
+            token: null
+          }
         } else {
 
           return {
