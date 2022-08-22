@@ -12,3 +12,4 @@ export class EmailService {
         return await Transport.sendMail(obj);
     }
 }
+//hacer declaracion

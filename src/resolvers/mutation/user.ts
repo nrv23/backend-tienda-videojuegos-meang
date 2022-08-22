@@ -225,7 +225,6 @@ const mutationResolvers: IResolvers = {
     activeUser: async(_:void, args:{ id: string, birthDate: string, password: string }, context: {token: string}) => {
 
       try {
-
         const response = await user.activeUser(+args.id,context.token,args.password,args.birthDate)
 
         if(response === 0) {

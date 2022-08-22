@@ -222,13 +222,13 @@ export class UserController {
     public async activeUser(id: number, token: string, password: string,birthDate: string) {
 
         const verified = this.jwt.verify(token) as any;
-
+        console.log({verified});
         if(!verified) {
             throw new Error("TOKEN_VENCIDO"); 
         } 
         console.log(verified.user);
         const checkToken = verified.user as unknown as userRow;
-
+        console.log({id})
         if(Number(checkToken.id) !== id){
             return 3;
         }
@@ -261,8 +261,7 @@ export class UserController {
         } 
 
         const checkToken = verified.user as unknown as userRow;
-        console.log({checkToken});
-        console.log({id})
+       
         if(Number(checkToken.id) !== +id){ // validar que sea la misma persona
             return 3;
         }
