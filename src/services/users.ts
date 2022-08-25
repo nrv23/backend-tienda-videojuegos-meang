@@ -1,3 +1,4 @@
+import { STATE_VALUES_FILTER } from './../config/constant';
 import { IPaginationOptions } from './../interface/PaginationOptions.interface';
 import { userRow } from './../interface/user.interface';
 import { Db, InsertManyResult, WithId } from "mongodb";
@@ -24,11 +25,21 @@ export class UserService {
         return connection?.collection(COLLECTIONS.USERS).insertOne(user);
     }
 
-    public async getUsers(page: number, items: number,filter: object = {
-        active: {
-            $ne: false
+    public async getUsers(page: number, items: number,filter: object = {},active: string = STATE_VALUES_FILTER.ACTIVE) {
+
+        if(active ===  STATE_VALUES_FILTER.ACTIVE) {
+            filter = {
+                active: {
+                    $ne: false
+                }
+            }
+        } else if(active ===  STATE_VALUES_FILTER.INACTIVE) {
+            filter = {
+                active: false
+            }
+        } else {
+            filter = {};
         }
-    }) {
 
         const connection = await db;
         const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.USERS,page,items,filter);

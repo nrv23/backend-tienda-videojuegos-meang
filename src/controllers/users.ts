@@ -76,9 +76,9 @@ export class UserController {
     }
 
 
-    public async getUsers(page: number = 1,items: number = 20) {
+    public async getUsers(page: number = 1,items: number = 20,active: string) {
 
-        const { users,resultPagination } = await this.user.getUsers(page, items);
+        const { users,resultPagination } = await this.user.getUsers(page, items,{},active);
 
         return { 
             users: users as unknown as User[],

@@ -6,11 +6,11 @@ const user = new UserController();
 
 const queryResolvers: IResolvers = {
   Query: {
-    users: async (_:void, args: { page: number, items: number }) => {
+    users: async (_:void, args: { page: number, items: number, active: string }) => {
 
       try {
 
-        const { users, resultPagination:info } = await user.getUsers(args.page,args.items);
+        const { users, resultPagination:info } = await user.getUsers(args.page,args.items,args.active);
 
         return  {
           info,
