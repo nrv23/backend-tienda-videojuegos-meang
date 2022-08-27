@@ -44,7 +44,8 @@ const mutationResolvers: IResolvers = {
 
           return  {
             status: true,
-            message: registerResponse
+            message: registerResponse.message,
+            users: [registerResponse.user]
           }
 ;
 

@@ -1,6 +1,6 @@
 type Mutation {
 
-    register(user: UserInput!): ResultRegister!
+    register(user: UserInput!): ResultUser!
     updateUser(user: UserInput!): ResultUser!
     deleteUser(id: ID!): ResultUser!
     blockUser(id: ID!, active:Boolean!): ResultUser!

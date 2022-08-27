@@ -72,7 +72,10 @@ export class UserController {
             return 2;
         };
 
-        return "Se ha agregado el usuario con éxito";
+        return {
+                message: "Se ha agregado el usuario con éxito",
+                user
+            };
     }
 
 
