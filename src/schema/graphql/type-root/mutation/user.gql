@@ -1,0 +1,10 @@
+type Mutation {
+  register(user: UserInput!): ResultUser!
+  updateUser(user: UserInput!): ResultUser!
+  deleteUser(id: ID!): ResultUser!
+  blockUser(id: ID!, active: Boolean!): ResultUser!
+
+  #Envio de emails automaticos
+  activeUser(id: ID!, birthDate: String!, password: String!): ResultMail!
+  resetPassword(id: ID!, password: String!): ResultUser!
+}

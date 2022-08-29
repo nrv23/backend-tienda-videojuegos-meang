@@ -1,11 +1,5 @@
 type Query {
-  users(
-    page: Int = 1
-    items: Int = 20
-    active: ActiveFilterEnum = ACTIVE
-  ): ResultUser!
-  login(email: String!, password: String!): ResultLogin!
-  me: ResultUser!
+  
   genres(page: Int = 1, items: Int = 20): ResultGenre!
   # se va a paginar de 20 en 20
   # se dejan los datos por default sino se envia nada

@@ -1,0 +1,9 @@
+type Query {
+  users(
+    page: Int = 1
+    items: Int = 20
+    active: ActiveFilterEnum = ACTIVE
+  ): ResultUser!
+  login(email: String!, password: String!): ResultLogin!
+  me: ResultUser!
+}

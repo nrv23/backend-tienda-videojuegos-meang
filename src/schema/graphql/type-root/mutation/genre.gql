@@ -1,0 +1,9 @@
+type Mutation {
+       # añadir los generos de los juegos
+
+    addGenre(genre: String!): ResultGenre!
+    updateGenre(genre: GenreInput!): ResultGenre!
+    deleteGenre(id: ID!): ResultGenre!
+    blockGenre(id: ID!,active: Boolean!): ResultGenre!
+
+}
