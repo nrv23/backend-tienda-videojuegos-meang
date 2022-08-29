@@ -5,5 +5,5 @@ type ResultShopProduct implements Result {
 
     # lista o producto seleccionado(s)
 
-    showProducts: [ShopProduct!] 
+    shopProducts: [ShopProduct!] 
 }
