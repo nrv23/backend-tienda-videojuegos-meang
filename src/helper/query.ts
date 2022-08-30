@@ -2,28 +2,28 @@ import { COLLECTIONS } from './../config/constant';
 import { Db } from "mongodb";
 
 
-function getLastId(db:Db, collection: string) {
+function getLastId(db: Db, collection: string) {
 
-    return db.collection(collection).find().sort({id: -1}).limit(1).toArray();
+    return db.collection(collection).find().sort({ id: -1 }).limit(1).toArray();
 }
 
-async function countElements (collection: string, db:Db,filter:object = {}) {
+async function countElements(collection: string, db: Db, filter: object = {}) {
 
     return await db.collection(collection).countDocuments(filter);
 
 }
-async function pagination(db:Db,collection: string, page:number=1, itemsPage:number = 20,filter: object = {} ) {
+async function pagination(db: Db, collection: string, page: number = 1, itemsPage: number = 20, filter: object = {}) {
 
     // Comprobar el numero de items por pagina
-    if(itemsPage > 20 || itemsPage < 1) {
+    if (itemsPage > 20 || itemsPage < 1) {
         itemsPage = 20; // va cargar 20 registros como  maximo por pagina
     }
 
-    if(page < 1) {
+    if (page < 1) {
         page = 1; // la primer pagina siempre va ser 1 
     }
 
-    const total = await countElements(collection,db,filter);
+    const total = await countElements(collection, db, filter);
 
     const totalPages = Math.ceil(total / itemsPage); // como puede haber un residuo en la division entonces se redondea
     // hacia arriba, 
@@ -38,4 +38,19 @@ async function pagination(db:Db,collection: string, page:number=1, itemsPage:num
         totalPages
     }
 }
-export  {getLastId,countElements,pagination};
+
+async function ramdonItems(collection: string, db: Db, filter: object = {}, items: number = 10) {
+
+    const pipeline = [ // el pipe line es para ibtener los items de la bd de forma aleatoria limitando a un numero de registros obtenidos
+        // la propiedad match es el where
+        // el sample obtiene de forma aleatoria y limitada por un entero positivo el numero d eregistros listados
+        {
+            $match: filter
+        },{
+            $sample: { size: items }
+        }
+    ]
+
+    return Promise.resolve(await db.collection(collection).aggregate(pipeline).toArray());
+}
+export { getLastId, countElements, pagination, ramdonItems };

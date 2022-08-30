@@ -14,7 +14,9 @@ export const DATABASE= `${DBURL}${DBNAME}`;
 export enum COLLECTIONS  {
     USERS = "users",
     GENRES = "genres",
-    SHOP_PRODUCTS = "products_platforms"
+    SHOP_PRODUCTS = "products_platforms",
+    PRODUCTS = "products",
+    PLATFORMS = "platforms",
 }
 
 export enum EXPRES_IN {

@@ -17,7 +17,7 @@ export class ShopProductService {
         return getLastId(connection as Db,COLLECTIONS.SHOP_PRODUCTS);
     }
 
-    public async getShopProducts(page: number,itemsPage: number, active: STATE_VALUES_FILTER) {
+    public async getShopProducts(page: number,itemsPage: number, active: STATE_VALUES_FILTER, platform_id?: string) {
         let filter: object =  {
 
         }
@@ -34,6 +34,12 @@ export class ShopProductService {
         } else {
             filter = {};
         }
+        
+        if(platform_id) {
+            filter = {...filter, platform_id}
+        }
+
+        console.log(filter)
         
         const connection = await db;
         const paginationOptions:IPaginationOptions = await pagination(connection as Db,COLLECTIONS.SHOP_PRODUCTS,page,itemsPage,filter);

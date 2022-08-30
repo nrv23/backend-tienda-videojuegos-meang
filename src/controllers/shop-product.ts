@@ -13,9 +13,9 @@ export class ShopProductController {
     }
 
 
-    public async getShopProducts(page: number = 1, itemsPage: number = 20, active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE) {
+    public async getShopProducts(page: number = 1, itemsPage: number = 20, active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,platform_id?: string) {
 
-        const { shopProducts, resultPagination } = await this.shopProduct.getShopProducts(page, itemsPage,active);
+        const { shopProducts, resultPagination } = await this.shopProduct.getShopProducts(page, itemsPage,active,platform_id);
 
         return { 
             shopProducts: shopProducts as unknown as Array<ShopProduct>, 

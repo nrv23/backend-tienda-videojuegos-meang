@@ -1,7 +1,17 @@
 type Query {
-      
-  showProducts(page: Int = 1, items: Int = 20, active: ActiveFilterEnum = ACTIVE): ResultShopProduct!
+  showProducts(
+    page: Int = 1
+    items: Int = 20
+    active: ActiveFilterEnum = ACTIVE
+  ): ResultShopProduct!
   # se va a paginar de 20 en 20
   # se dejan los datos por default sino se envia nada
   # genre(id: ID!): ResultGenre!
+
+  showProductsPlatforms(
+    page: Int = 1
+    items: Int = 20
+    active: ActiveFilterEnum = ACTIVE,
+    platform_id: ID!
+  ): ResultShopProduct!
 }
