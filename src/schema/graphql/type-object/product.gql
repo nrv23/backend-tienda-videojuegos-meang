@@ -2,6 +2,9 @@ type Product {
     id: ID!
     name: String!
     slug: String!
-    released: String!
-    img: String!
+    released: String
+    img: String
+    clip: Clip,
+    rating: Rating
+    shortScreenshots: [String]
 }

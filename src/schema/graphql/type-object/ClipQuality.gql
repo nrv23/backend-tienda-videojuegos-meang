@@ -1,0 +1,5 @@
+type ClipQuality {
+    low: String!
+    medium: String!
+    full: String!
+}

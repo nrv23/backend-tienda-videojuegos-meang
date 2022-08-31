@@ -1,25 +1,45 @@
-import { STATE_VALUES_FILTER } from './../config/constant';
-import { ShopProduct } from './../models/shop-product.model';
-import { ShopProductService } from './../services/shop-product';
-
+import { STATE_VALUES_FILTER } from "./../config/constant";
+import { ShopProduct } from "./../models/shop-product.model";
+import { ShopProductService } from "./../services/shop-product";
 
 export class ShopProductController {
+  private shopProduct: ShopProductService;
 
-    private shopProduct: ShopProductService;
+  constructor() {
+    this.shopProduct = new ShopProductService();
+  }
 
-    constructor() {
+  public async getShopProducts(
+    page: number = 1,
+    itemsPage: number = 20,
+    active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,
+    platform_id?: string,
+    randmon?: boolean // valores aleatorios
+  ) {
+    const response = await this.shopProduct.getShopProducts(
+        page,
+        itemsPage,
+        active,
+        platform_id,
+        randmon
+      );
+    if(!randmon) {
 
-        this.shopProduct = new ShopProductService();
-    }
+        const { shopProducts, resultPagination } = response;
+    
+        return {
+        shopProducts,
+        resultPagination
+        };
+    
+    } else {
 
+        const { info, shopProducts} = response;
 
-    public async getShopProducts(page: number = 1, itemsPage: number = 20, active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,platform_id?: string) {
-
-        const { shopProducts, resultPagination } = await this.shopProduct.getShopProducts(page, itemsPage,active,platform_id);
-
-        return { 
-            shopProducts: shopProducts as unknown as Array<ShopProduct>, 
-            resultPagination 
+        return {
+            shopProducts,
+            resultPagination: info
         };
     }
+  }
 }

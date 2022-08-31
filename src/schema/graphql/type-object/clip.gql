@@ -1,0 +1,5 @@
+type Clip {
+    clips: ClipQuality
+    video: String
+    preview: String
+}

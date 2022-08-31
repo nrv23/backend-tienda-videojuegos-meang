@@ -34,13 +34,14 @@ const queryResolversShopProducts: IResolvers = {
         items: number;
         active?: STATE_VALUES_FILTER;
         platform_id: string;
+        random: boolean;
       },
       context: { token: string }
     ) => {
       try {
 
         const { shopProducts, resultPagination } =
-          await shopProduct.getShopProducts(args.page, args.items, args.active,args.platform_id);
+          await shopProduct.getShopProducts(args.page, args.items, args.active,args.platform_id,args.random);
 
         return {
           status: true,
