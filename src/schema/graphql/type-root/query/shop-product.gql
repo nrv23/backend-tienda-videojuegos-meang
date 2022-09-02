@@ -11,8 +11,20 @@ type Query {
   showProductsPlatforms(
     page: Int = 1
     items: Int = 20
-    active: ActiveFilterEnum = ACTIVE,
-    platform_id: ID!,
+    active: ActiveFilterEnum = ACTIVE
+    platform_id: ID!
+    random: Boolean = false # se va enviar este valor para saber si los datos se cargan de forma random
+  ): ResultShopProduct!
+
+  # cargar productos en oferta
+
+  showProductsOffers(
+    page: Int = 1
+    items: Int = 20
+    active: ActiveFilterEnum = ACTIVE
+    #Tope del precio para considerar la oferta
+    topPrice: Float! = -1
+    lastUnits: Int = -1 # tope de cantidad para saber si los productos tienen bajo el stock
     random: Boolean = false # se va enviar este valor para saber si los datos se cargan de forma random
   ): ResultShopProduct!
 }

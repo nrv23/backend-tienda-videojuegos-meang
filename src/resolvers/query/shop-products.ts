@@ -39,9 +39,14 @@ const queryResolversShopProducts: IResolvers = {
       context: { token: string }
     ) => {
       try {
-
         const { shopProducts, resultPagination } =
-          await shopProduct.getShopProducts(args.page, args.items, args.active,args.platform_id,args.random);
+          await shopProduct.getShopProducts(
+            args.page,
+            args.items,
+            args.active,
+            args.platform_id,
+            args.random
+          );
 
         return {
           status: true,
@@ -49,8 +54,47 @@ const queryResolversShopProducts: IResolvers = {
           shopProducts,
           info: resultPagination,
         };
-
       } catch (error) {
+        return {
+          status: false,
+          message: "Hubo un error en el servidor",
+        };
+      }
+    },
+
+    showProductsOffers: async (
+      _: void,
+      args: {
+        page: number;
+        items: number;
+        active?: STATE_VALUES_FILTER;
+        topPrice: number; // el numero es flotante
+        lastUnits: number;
+        random: boolean;
+      },
+      context: { token: string }
+    ) => {
+      try {
+
+
+        const { shopProducts, resultPagination } =
+          await shopProduct.getProductsOffers(
+            args.page,
+            args.items,
+            args.active,
+            args.random,
+            args.topPrice,
+            args.lastUnits
+          );
+
+        return {
+          status: true,
+          message: "",
+          shopProducts,
+          info: resultPagination,
+        };
+      } catch (error) {
+        console.log({ error });
         return {
           status: false,
           message: "Hubo un error en el servidor",

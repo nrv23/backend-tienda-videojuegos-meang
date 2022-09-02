@@ -19,7 +19,8 @@ export class ShopProductService {
     itemsPage: number,
     active: STATE_VALUES_FILTER,
     platform_id?: string,
-    random: boolean = false
+    random: boolean = false,
+    otherFilters: object = {}
   ) {
     let filter: object = {};
     if (active === STATE_VALUES_FILTER.ACTIVE) {
@@ -38,8 +39,15 @@ export class ShopProductService {
 
     if (platform_id) {
       filter = { ...filter, platform_id };
-    }
+    } 
 
+    console.log({otherFilters})
+    
+    if(Object.keys(otherFilters).length > 0 && typeof otherFilters !== "undefined") {
+      console.log("viene")
+      filter = {...filter,...otherFilters}; // con el operador spread hago una fusion de un objeto dentro de otro
+    }
+    
     console.log(filter);
     console.log({ random });
 
