@@ -73,7 +73,7 @@ export class ShopProductController {
           },
         ],
       };
-    } else if (lastUnits === 0 && topPrice > 10) {
+    } else if (lastUnits <= 0 && topPrice > 10) {
       // casi agotado con precios bajos
       console.log("2");
       
