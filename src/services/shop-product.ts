@@ -18,7 +18,7 @@ export class ShopProductService {
     page: number,
     itemsPage: number,
     active: STATE_VALUES_FILTER,
-    platform_id?: string,
+    platform_id?: string[],
     random: boolean = false,
     otherFilters: object = {}
   ) {
@@ -37,8 +37,8 @@ export class ShopProductService {
       filter = {};
     }
 
-    if (platform_id) {
-      filter = { ...filter, platform_id };
+    if (Number(platform_id?.length) > 0) {
+      filter = { ...filter, platform_id: {$in: platform_id} };
     } 
 
     console.log({otherFilters})

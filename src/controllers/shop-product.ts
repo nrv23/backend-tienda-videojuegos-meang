@@ -13,7 +13,7 @@ export class ShopProductController {
     page: number = 1,
     itemsPage: number = 20,
     active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,
-    platform_id?: string,
+    platform_id?: string[],
     randmon?: boolean // valores aleatorios,
   ) {
     const response = await this.shopProduct.getShopProducts(
@@ -102,7 +102,7 @@ export class ShopProductController {
       page,
       itemsPage,
       active,
-      "",
+      [],
       randmon,
       filters
     );

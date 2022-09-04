@@ -33,7 +33,7 @@ const queryResolversShopProducts: IResolvers = {
         page: number;
         items: number;
         active?: STATE_VALUES_FILTER;
-        platform_id: string;
+        platform_id: string[];
         random: boolean;
       },
       context: { token: string }
