@@ -92,7 +92,8 @@ export class ShopProductController {
       filters = {
         stock: {
           // menor o igual al topprice de parametro
-          $lte: lastUnits,
+            $lte: lastUnits,
+            $gte: 1
         },
       };
     }
