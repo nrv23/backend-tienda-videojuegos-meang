@@ -101,6 +101,21 @@ const queryResolversShopProducts: IResolvers = {
         };
       }
     },
+
+    shopProductDetails: async (_ : void, args: {id: number}) => {
+      
+      try {
+
+          
+
+
+      } catch (error) {
+        return {
+          status: false,
+          message: "Hubo un error en el servidor",
+        };
+      }
+    }
   },
 };
 

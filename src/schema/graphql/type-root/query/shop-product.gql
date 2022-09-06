@@ -27,4 +27,8 @@ type Query {
     lastUnits: Int = -1 # tope de cantidad para saber si los productos tienen bajo el stock
     random: Boolean = false # se va enviar este valor para saber si los datos se cargan de forma random
   ): ResultShopProduct!
+
+
+  #obtener detalles de un producto
+  shopProductDetails(id: Int!): ResultShopProduct!
 }

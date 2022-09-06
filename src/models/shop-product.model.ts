@@ -12,6 +12,7 @@ export class ShopProduct {
   public stock: number;
   public product?: Product;
   public platform?: Platform;
+  public relationalProducts?: ShopProduct;
 
   constructor(
     id: number,
@@ -23,6 +24,7 @@ export class ShopProduct {
     _id?: ObjectId,
     product?: Product,
     platform?: Platform,
+    relationalProducts?: ShopProduct,
   ) {
     this.id = id;
     this.product_id = product_id;
@@ -33,5 +35,6 @@ export class ShopProduct {
     this._id = _id;
     this.product = product;
     this.platform = platform;
+    this.relationalProducts = relationalProducts;
   }
 }
