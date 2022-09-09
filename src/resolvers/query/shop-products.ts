@@ -106,7 +106,13 @@ const queryResolversShopProducts: IResolvers = {
       
       try {
 
-          
+        const shopProducts = await shopProduct.getProductsDetails(args.id) 
+
+          return {
+            status: true,
+            message: "",
+            shopProducts
+          }
 
 
       } catch (error) {

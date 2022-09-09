@@ -123,4 +123,13 @@ export class ShopProductController {
       };
     }
   }
+
+  async getProductsDetails(id: number) {
+
+    return await this.shopProduct.details(id,{});
+  }
+
+  async getRelationalProducts(product_id: number, id: number) {
+    return await this.shopProduct.getRelationalProducts(product_id, id);
+  }
 }

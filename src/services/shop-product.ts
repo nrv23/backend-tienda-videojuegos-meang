@@ -38,16 +38,19 @@ export class ShopProductService {
     }
 
     if (Number(platform_id?.length) > 0) {
-      filter = { ...filter, platform_id: {$in: platform_id} };
-    } 
-
-    console.log({otherFilters})
-    
-    if(Object.keys(otherFilters).length > 0 && typeof otherFilters !== "undefined") {
-      console.log("viene")
-      filter = {...filter,...otherFilters}; // con el operador spread hago una fusion de un objeto dentro de otro
+      filter = { ...filter, platform_id: { $in: platform_id } };
     }
-    
+
+    console.log({ otherFilters });
+
+    if (
+      Object.keys(otherFilters).length > 0 &&
+      typeof otherFilters !== "undefined"
+    ) {
+      console.log("viene");
+      filter = { ...filter, ...otherFilters }; // con el operador spread hago una fusion de un objeto dentro de otro
+    }
+
     console.log(filter);
     console.log({ random });
 
@@ -109,5 +112,27 @@ export class ShopProductService {
         shopProducts: result as ShopProduct[],
       };
     }
+  }
+
+  async details(id: number, filter: object = {}) {
+    const connection = (await db) as Db;
+    return connection?.collection(COLLECTIONS.SHOP_PRODUCTS).find({
+      id
+    }).toArray();
+  }
+
+  async getRelationalProducts(product_id: number,id: number) {
+    console.log({product_id, id})
+
+    const connection = (await db) as Db;
+    return connection?.collection(COLLECTIONS.SHOP_PRODUCTS).find({
+      $and: [
+        {
+          product_id: String(product_id)
+        },{
+          id: {$ne: id}
+        }
+      ]
+    }).toArray();
   }
 }
