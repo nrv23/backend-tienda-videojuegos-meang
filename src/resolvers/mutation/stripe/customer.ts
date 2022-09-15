@@ -9,18 +9,20 @@ const customerStripeMutationResolvers: IResolvers = {
 
             try {
 
-                const response = await stripe.createCustomer(args.email,args.name);
-                console.log(JSON.stringify(response))
-                if(response) { // agregó el cliente en stripe
+                const customerResponse = await stripe.createCustomer(args.email,args.name);
 
-                } else {
-
+                if(!customerResponse) { // agregó el cliente en stripe
+                    return {
+                        status: false,
+                        message: "No se pudo agregar el cliente",
+                        customers: null
+                    }
                 }
-
+                
                 return {
-                    status: false,
-                    message: "Agreado",
-                    customers: null
+                    status: true,
+                    message: "No se pudo agregar el cliente",
+                    customers: customerResponse 
                 }
                 
             } catch (error) {

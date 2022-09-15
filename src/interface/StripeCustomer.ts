@@ -1,14 +1,14 @@
 export interface StripeCustomer {
     id:                  string;
     object:              string;
-    address:             null;
+    address?:             string;
     balance:             number;
     created:             number;
-    currency:            null;
-    defaultSource:       null;
+    currency?:            string;
+    defaultSource?:       string;
     delinquent:          boolean;
     description:         string;
-    discount:            null;
+    discount?:            number;
     email:               string;
     invoicePrefix:       string;
     invoiceSettings:     InvoiceSettings;
@@ -16,11 +16,11 @@ export interface StripeCustomer {
     metadata:            Metadata;
     name:                string;
     nextInvoiceSequence: number;
-    phone:               null;
+    phone?:               string;
     preferredLocales:    any[];
-    shipping:            null;
+    shipping?:            null;
     taxExempt:           string;
-    testClock:           null;
+    testClock?:           null;
 }
 
 export interface InvoiceSettings {

@@ -1,0 +1,9 @@
+type Query {
+  customers(
+      limit: Int = 5
+      "Especificar la primera posicion despues la seleccion del usuario"
+      startingAfter: ID = ""
+      "Terminar antes de este usuario para mostrar los anteriores"
+      endingBefore: ID = ""
+  ): ResultStripeCustomer!
+}
