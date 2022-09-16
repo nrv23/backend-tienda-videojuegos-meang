@@ -9,8 +9,9 @@ export class User {
     public birthDate? :string;
     public registerDate? :string;
     public active? :boolean;
+    public customerId? :boolean;
 
-    constructor(id: number , name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string, registerDate?: string, active?: boolean ) {
+    constructor(id: number , name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string, registerDate?: string, active?: boolean,customerId? :boolean ) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -21,5 +22,6 @@ export class User {
         this.birthDate = birthDate;
         this.registerDate = registerDate;
         this.active = active;
+        this.customerId = customerId;
     }
 }

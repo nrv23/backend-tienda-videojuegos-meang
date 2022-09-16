@@ -17,7 +17,7 @@ export class UserController {
         this.bcrypt = new Bcrypt();
     }
 
-    private async existUser(value: string | number, tipo: string) {
+    public async existUser(value: string | number, tipo: string) {
 
 
         if(!value ) {
@@ -286,6 +286,10 @@ export class UserController {
         }
 
         return "Se ha cambiado la contraseña";
+    }
 
+    public async addCustomerStripeId(customerId: string, id: number) {
+
+        return this.user.addCustomerStripeId(customerId,id);
     }
 }

@@ -80,6 +80,15 @@ export class UserService {
 
     }
 
+    public async addCustomerStripeId(customerId: string, id: number) {
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({id: Number(id)},{
+            $set: {
+                customerId
+            }
+        })
+    }
+
     public async existUser(value: string | number) {
 
         const connection = await db;

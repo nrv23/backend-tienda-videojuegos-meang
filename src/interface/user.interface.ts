@@ -9,6 +9,7 @@ export interface User {
     role?: string;
     birthDate: string;
     active?: boolean;
+    customerId?: boolean;
   };
 }
 
@@ -22,4 +23,5 @@ export interface userRow  extends WithId<Document> {
     birthDate: string;
     registerDate: string;
     active?: boolean;
+    customerId?: boolean;
 }

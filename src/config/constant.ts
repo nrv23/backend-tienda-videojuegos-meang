@@ -34,3 +34,13 @@ export enum STATE_VALUES_FILTER  {
     ALL = "ALL",
     INACTIVE = "INACTIVE"
 }
+
+export const STRIPE_OBJECTS = {
+    CUSTOMERS: "customers"
+}
+
+export const STRIPE_ACTIONS = {
+    CREATE: "create",
+    LIST: "list",
+    SEARCH: "search"
+}
