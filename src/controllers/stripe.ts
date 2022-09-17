@@ -48,7 +48,7 @@ export class StripeCustomerController {
       
       const updateCustomerId = await this.userController.addCustomerStripeId(obj.data[0].id,user[0].id);
 
-      if(updateCustomerId?.modifiedCount === 0) {
+      if(updateCustomerId!.modifiedCount === 0) {
         console.log("No se actualizó")
       }
 
@@ -71,5 +71,39 @@ export class StripeCustomerController {
       startingAfter,
       endingBefore
     );
+  }
+
+  public async retrieveCustomer(id: string) {
+    const response = await this.stripeCustomerService.getRetrieveCustomerById(id);
+
+    if(!response) {
+      return null;
+    } else {
+      return [response];
+    }
+ 
+  }
+
+  public async updateCustomer(id: string, obj: any) {
+    const response = await this.stripeCustomerService.updateCustomer(id,obj);
+    return !response ? null : [response];
+  }
+
+  public async deleteCustomer(id: string) {
+    
+    const response = await this.stripeCustomerService.deleteCustomer(id);
+
+    if(response.deleted){
+      const deleteCustomerIdProp = await this.userController.dropCustomerIdProp(id);
+
+      if(deleteCustomerIdProp?.modifiedCount === 0) {
+
+        return null;
+      } else {
+        return response;
+      }
+    } else {
+      return null;
+    }
   }
 }

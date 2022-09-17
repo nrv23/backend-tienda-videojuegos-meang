@@ -36,11 +36,15 @@ export enum STATE_VALUES_FILTER  {
 }
 
 export const STRIPE_OBJECTS = {
-    CUSTOMERS: "customers"
+    CUSTOMERS: "customers",
+    TOKEN: "tokens"
 }
 
 export const STRIPE_ACTIONS = {
     CREATE: "create",
     LIST: "list",
-    SEARCH: "search"
+    SEARCH: "search",
+    RETRIEVE: "retrieve",
+    UPDATE: "update",
+    DELETE: "del",
 }

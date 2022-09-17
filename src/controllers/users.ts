@@ -292,4 +292,14 @@ export class UserController {
 
         return this.user.addCustomerStripeId(customerId,id);
     }
+
+    public async dropCustomerIdProp(customerId: string) {
+
+        return await this.user.dropCustomerIdProp(customerId)
+    }
+
+    public async addTokenCard(customerId: string,tokenCard:String) {
+
+        return await this.user.addTokenCard(customerId,tokenCard);
+    }
 }

@@ -1,0 +1,6 @@
+type Query {
+
+    "Crear toeken para relizar los pagos por tarjeta"
+
+    createCardToken(card: CardInput): ResultStripeCard!
+}

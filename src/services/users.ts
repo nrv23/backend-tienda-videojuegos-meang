@@ -130,5 +130,22 @@ export class UserService {
             }
         })
     }
+
+    public async dropCustomerIdProp(customerId: string) {
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({customerId: String(customerId)},{
+            $unset: {
+                customerId
+            }
+        })
+    }
+    public async addTokenCard(customerId: string,tokenCard:String) {
+        const connection = await db;
+        return connection?.collection(COLLECTIONS.USERS).updateOne({customerId: String(customerId)},{
+            $set: {
+                tokenCard: String(tokenCard)
+            }
+        })
+    }
     
 }

@@ -6,7 +6,8 @@ class StripeAPI {
     });
 
     async execute(object: string, action: string, ...args:[
-        (string | object)
+        (string | object),
+        (string | object)?,
     ]) {
         return await this.stripe[object][action](...args)
     }
