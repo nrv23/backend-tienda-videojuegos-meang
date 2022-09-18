@@ -139,13 +139,4 @@ export class UserService {
             }
         })
     }
-    public async addTokenCard(customerId: string,tokenCard:String) {
-        const connection = await db;
-        return connection?.collection(COLLECTIONS.USERS).updateOne({customerId: String(customerId)},{
-            $set: {
-                tokenCard: String(tokenCard)
-            }
-        })
-    }
-    
 }

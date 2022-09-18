@@ -297,9 +297,4 @@ export class UserController {
 
         return await this.user.dropCustomerIdProp(customerId)
     }
-
-    public async addTokenCard(customerId: string,tokenCard:String) {
-
-        return await this.user.addTokenCard(customerId,tokenCard);
-    }
 }

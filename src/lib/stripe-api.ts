@@ -5,10 +5,7 @@ class StripeAPI {
         apiVersion: process.env.STRIPE_API_VERSION
     });
 
-    async execute(object: string, action: string, ...args:[
-        (string | object),
-        (string | object)?,
-    ]) {
+    async execute(object: string, action: string, ...args:Array<string | object| undefined>) {
         return await this.stripe[object][action](...args)
     }
 }

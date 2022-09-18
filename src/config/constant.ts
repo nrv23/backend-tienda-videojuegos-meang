@@ -47,4 +47,9 @@ export const STRIPE_ACTIONS = {
     RETRIEVE: "retrieve",
     UPDATE: "update",
     DELETE: "del",
+    CREaTE_SOURCE: "createSource",
+    RETRIEVE_SOURCE: "retrieveSource",
+    UPDATE_SOURCE: "updateSource",
+    DELETE_SOURCE: "deleteSource",
+    LIST_SOURCE: "listSources"
 }

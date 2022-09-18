@@ -1,5 +1,8 @@
 type ResultStripeCard implements Result {
   status: Boolean!
   message: String!
+  hasMore: Boolean! 
   token: String
+  card: ID
+  dataCard: [Card!]
 }
