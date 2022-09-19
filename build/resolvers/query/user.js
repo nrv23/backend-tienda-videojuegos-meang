@@ -13,12 +13,14 @@ const users_1 = require("./../../controllers/users");
 const user = new users_1.UserController();
 const queryResolvers = {
     Query: {
-        users: (_, __) => __awaiter(void 0, void 0, void 0, function* () {
+        users: (_, args) => __awaiter(void 0, void 0, void 0, function* () {
             try {
+                const { users, resultPagination: info } = yield user.getUsers(args.page, args.items, args.active);
                 return {
+                    info,
                     status: true,
                     message: "",
-                    users: yield user.getUsers()
+                    users
                 };
             }
             catch (error) {
@@ -44,6 +46,13 @@ const queryResolvers = {
                     return {
                         status: false,
                         message: "Datos de autenticación incorrectos",
+                        token: null
+                    };
+                }
+                else if (loginResponse === 2) {
+                    return {
+                        status: false,
+                        message: "La cuenta está bloqueada. Contacte al administrador",
                         token: null
                     };
                 }

@@ -11,6 +11,7 @@ class Jwt {
         this.secret_key = constant_1.SECRET_KEY;
     }
     sign(data, expiresIn = constant_1.EXPRES_IN.H1) {
+        delete data.password;
         return jsonwebtoken_1.default.sign({ user: data }, this.secret_key, {
             expiresIn
         });

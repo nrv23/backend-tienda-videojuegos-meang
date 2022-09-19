@@ -1,4 +1,4 @@
-import { IListCardStripeResponse } from './../interface/IListCardStripeResponse';
+import { IListCardStripeResponse } from "./../interface/IListCardStripeResponse";
 import { ICardRequest } from "./../interface/ICardRequest";
 import { STRIPE_OBJECTS, STRIPE_ACTIONS } from "./../config/constant";
 import StripeAPI from "../lib/stripe-api";
@@ -10,6 +10,7 @@ export class CardService {
   private stripeApi: StripeAPI = new StripeAPI();
 
   async createCardToken(card: ICardRequest): Promise<ICardResponse> {
+    //crea el token para usar la atrjeta
     return await this.stripeApi.execute(
       STRIPE_OBJECTS.TOKEN,
       STRIPE_ACTIONS.CREATE,
@@ -22,13 +23,17 @@ export class CardService {
     tokenCard: String
   ): Promise<ICardResponse> {
     return await this.stripeApi.execute(
+      //// esta funcion asocia una tarjeta con el cliente
       STRIPE_OBJECTS.CUSTOMERS,
       STRIPE_ACTIONS.CREaTE_SOURCE,
       customerId,
       { source: tokenCard }
     );
   }
-  public async retrieveSource(customerId: string, cardToken: string): Promise<Card> {
+  public async retrieveSource(
+    customerId: string,
+    cardToken: string
+  ): Promise<Card> {
     return await this.stripeApi.execute(
       STRIPE_OBJECTS.CUSTOMERS,
       STRIPE_ACTIONS.RETRIEVE_SOURCE,
@@ -37,8 +42,11 @@ export class CardService {
     );
   }
 
-  public async updateCard(customerId: string, tokenCard: string, card: Card): Promise<Card> {
-    
+  public async updateCard(
+    customerId: string,
+    tokenCard: string,
+    card: Card
+  ): Promise<Card> {
     let objUpdate: any = {};
     for (const [key, value] of Object.entries(card)) {
       if (key && value) {
@@ -47,21 +55,21 @@ export class CardService {
     }
 
     return await this.stripeApi.execute(
-        STRIPE_OBJECTS.CUSTOMERS,
-        STRIPE_ACTIONS.UPDATE_SOURCE,
-        customerId,
-        tokenCard,
-        objUpdate
+      STRIPE_OBJECTS.CUSTOMERS,
+      STRIPE_ACTIONS.UPDATE_SOURCE,
+      customerId,
+      tokenCard,
+      objUpdate
     );
   }
 
-  public async deleteCard(customerId:string, tokenCard: string) {
+  public async deleteCard(customerId: string, tokenCard: string) {
     return await this.stripeApi.execute(
-        STRIPE_OBJECTS.CUSTOMERS,
-        STRIPE_ACTIONS.DELETE_SOURCE,
-        customerId,
-        tokenCard
-    ); 
+      STRIPE_OBJECTS.CUSTOMERS,
+      STRIPE_ACTIONS.DELETE_SOURCE,
+      customerId,
+      tokenCard
+    );
   }
 
   public async getCards(
@@ -86,7 +94,17 @@ export class CardService {
       STRIPE_OBJECTS.CUSTOMERS,
       STRIPE_ACTIONS.LIST_SOURCE,
       customerId,
-      {object:'card', ...filter}
+      { object: "card", ...filter }
     );
+  }
+
+  
+  public async removeOtherCards(customer: string, noRemoveCardId: string) {
+    const { data:cards } = await this.getCards(customer, 100, "", "");
+    for(const card of cards) {
+      if(noRemoveCardId && card.id! !== noRemoveCardId) {
+        await this.deleteCard(customer, card.id!);
+      }
+    }
   }
 }

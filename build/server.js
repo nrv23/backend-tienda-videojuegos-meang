@@ -41,7 +41,6 @@ class GraphQLServer {
         return __awaiter(this, void 0, void 0, function* () {
             const context = ({ req, connection }) => __awaiter(this, void 0, void 0, function* () {
                 const token = req ? req.headers.authorization : connection.authorization;
-                console.log({ token });
                 return {
                     token
                 };

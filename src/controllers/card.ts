@@ -44,4 +44,9 @@ export class CardController {
       endingBefore
     );
   }
+
+  public async removeOtherCards(customer: string, noRemoveCardId: string) {
+
+    return this.cardService.removeOtherCards(customer, noRemoveCardId)
+  }
 }

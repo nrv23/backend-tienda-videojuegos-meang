@@ -37,7 +37,8 @@ export enum STATE_VALUES_FILTER  {
 
 export const STRIPE_OBJECTS = {
     CUSTOMERS: "customers",
-    TOKEN: "tokens"
+    TOKEN: "tokens",
+    CHARGES: "charges",
 }
 
 export const STRIPE_ACTIONS = {

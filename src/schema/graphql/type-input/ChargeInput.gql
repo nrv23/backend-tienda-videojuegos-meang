@@ -1,0 +1,12 @@
+input ChargeInput {
+    source: String! # token de la tarjeta seleccionada
+    "Cantidad a pagar"
+    amount: String!
+    "Resumen del pedido"
+    description: String!
+    "Cliente"
+    customer: String!
+    "Divisa"
+    currency: CurrencyEnum = USD
+    token: String
+}

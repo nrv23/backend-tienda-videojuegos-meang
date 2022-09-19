@@ -1,0 +1,79 @@
+type Refunds {
+  object: String
+  has_more: Boolean
+  url: String
+  data: [String]
+}
+
+type Checks {
+  address_line1_check: String
+  address_postal_code_check: String
+  cvc_check: String
+}
+
+type PaymentMethodDetails {
+  type: String
+  card: Card
+}
+
+type Address {
+  city: String
+  country: String
+  line1: String
+  line2: String
+  postal_code: String
+  state: String
+}
+
+type BillingDetails {
+  email: String
+  name: String
+  phone: String
+  address: Address
+}
+
+type Charge {
+  id: ID!
+  object: String
+  amount: Float!
+  amount_captured: Int
+  amount_refunded: Int
+  application: String
+  application_fee: String
+  application_fee_amount: String
+  balance_transaction: String
+  calculated_statement_descriptor: String
+  captured: Boolean
+  created: String
+  currency: String
+  customer: String
+  description: String
+  disputed: Boolean
+  failure_balance_transaction: String
+  failure_code: String
+  failure_message: String
+  invoice: String
+  livemode: Boolean
+  on_behalf_of: String
+  outcome: String
+  paid: Boolean
+  payment_intent: String
+  payment_method: String
+  receipt_email: String
+  receipt_number: String
+  receipt_url: String
+  refunded: Boolean
+  review: String
+  shipping: String
+  source_transfer: String
+  statement_descriptor: String
+  statement_descriptor_suffix: String
+  status: String
+  transfer_data: String
+  transfer_group: String
+  source: String
+  refunds: Refunds
+  payment_method_details: PaymentMethodDetails
+  billing_details: BillingDetails
+  typeOrder: String!
+}

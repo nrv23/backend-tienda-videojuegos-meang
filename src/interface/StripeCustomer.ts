@@ -5,22 +5,22 @@ export interface StripeCustomer {
     balance:             number;
     created:             number;
     currency?:            string;
-    defaultSource?:       string;
+    default_source?:       string;
     delinquent:          boolean;
     description:         string;
     discount?:            number;
     email:               string;
-    invoicePrefix:       string;
-    invoiceSettings:     InvoiceSettings;
+    invoice_Prefix:       string;
+    invoice_settings:     InvoiceSettings;
     livemode:            boolean;
     metadata:            Metadata;
     name:                string;
-    nextInvoiceSequence: number;
+    next_invoice_sequence: number;
     phone?:               string;
-    preferredLocales:    any[];
+    preferred_locales:    any[];
     shipping?:            null;
-    taxExempt:           string;
-    testClock?:           null;
+    tax_exempt:           string;
+    test_clock?:           null;
 }
 
 export interface InvoiceSettings {

@@ -75,7 +75,6 @@ export class StripeCustomerController {
 
   public async retrieveCustomer(id: string) {
     const response = await this.stripeCustomerService.getRetrieveCustomerById(id);
-
     if(!response) {
       return null;
     } else {

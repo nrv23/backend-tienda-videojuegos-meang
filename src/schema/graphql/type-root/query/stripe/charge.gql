@@ -1,0 +1,4 @@
+type Query {
+
+    retrieveCharge(chargeId: ID!): ResultStripeCharge!
+}

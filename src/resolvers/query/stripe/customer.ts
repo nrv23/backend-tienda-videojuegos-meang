@@ -36,7 +36,7 @@ const queryStripeCustomersResolvers: IResolvers = {
       try {
 
         const response = await stripe.retrieveCustomer(args.id);
-        console.log(response);
+        console.log({response});
         return {
             status: true,
             message: "",
